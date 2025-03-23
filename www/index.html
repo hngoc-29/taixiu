@@ -4,11 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <title>Game Tài Xỉu Online</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7299491929927944"
-        crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -61,11 +60,16 @@
             <div class="modal-content">
                 <span class="close" onclick="closeAd()">&times;</span>
                 <h3>Watch Ad to Receive Reward</h3>
-                <ins class="adsbygoogle" style="display:block;min-width: 300px;min-height: 180px;"
-                    data-ad-client="ca-pub-3940256099942544" data-ad-slot="1234567890" data-ad-format="auto">
-                </ins>
                 <p id="ad-timer">Ad ends in: <span id="ad-countdown">15</span> seconds</p>
                 <button id="claim-reward" class="hidden" onclick="getReward()">Claim Reward 🎁</button>
+            </div>
+        </div>
+        <!-- Custom modal for user input -->
+        <div id="custom-modal" style="display: none;">
+            <div class="modal-content">
+                <p id="modal-message"></p>
+                <input type="text" id="modal-input" style="width: 80%;">
+                <button id="modal-button">OK</button>
             </div>
         </div>
         <!-- Chat modal structure -->

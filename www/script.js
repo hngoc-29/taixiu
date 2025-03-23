@@ -27,12 +27,33 @@ function generateUniqueId() {
     return randomId;
 }
 
+// Function to show a modal with a message and an input field
+function showModal(message, callback) {
+    const modal = document.getElementById('custom-modal');
+    const modalMessage = document.getElementById('modal-message');
+    const modalInput = document.getElementById('modal-input');
+    const modalButton = document.getElementById('modal-button');
+
+    modalMessage.innerHTML = message;
+    modalInput.value = '';
+    modal.style.display = 'flex';
+
+    modalButton.onclick = function () {
+        const inputValue = modalInput.value.trim();
+        if (inputValue) {
+            modal.style.display = 'none';
+            callback(inputValue);
+        } else {
+            alert('Tên người dùng không được để trống. Vui lòng nhập tên người dùng của bạn:');
+        }
+    };
+}
+
 // Function to validate and sanitize cookies
 function validateCookies() {
     const id = getCookie('id');
     const money = getCookie('money');
     const username = getCookie('username');
-
     if (!id || !/^[a-z0-9]+$/.test(id)) {
         setCookie('id', generateUniqueId(), 365);
     }
@@ -42,11 +63,11 @@ function validateCookies() {
     }
 
     if (!username || username.trim() === '') {
-        let newUsername = prompt("Vui lòng nhập tên người dùng của bạn:");
-        while (!newUsername) {
-            newUsername = prompt("Tên người dùng không được để trống. Vui lòng nhập tên người dùng của bạn:");
-        }
-        setCookie('username', newUsername, 365);
+        console.log('username')
+        showModal("Vui lòng nhập tên người dùng của bạn:", function (newUsername) {
+            setCookie('username', newUsername, 365);
+            document.getElementById('custom-modal').style.display = 'none'; // Ensure modal is closed
+        });
     }
 }
 
@@ -64,11 +85,10 @@ if (!getCookie('money')) {
 }
 
 if (!getCookie('username')) {
-    let username = prompt("Vui lòng nhập tên người dùng của bạn:");
-    while (!username) {
-        username = prompt("Tên người dùng không được để trống. Vui lòng nhập tên người dùng của bạn:");
-    }
-    setCookie('username', username, 365);
+    showModal("Vui lòng nhập tên người dùng của bạn:", function (username) {
+        setCookie('username', username, 365);
+        document.getElementById('custom-modal').style.display = 'none'; // Ensure modal is closed
+    });
 }
 
 // Function to adjust the width of the money display based on the length of the money value
