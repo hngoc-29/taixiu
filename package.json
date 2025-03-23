@@ -4,11 +4,13 @@
   "description": "game tai xiu nodejs",
   "main": "index.js",
   "scripts": {
+    "start": "node --watch index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "nhockm4v",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.7",
     "express": "^4.16.4",
     "socket.io": "^2.2.0"
   }
