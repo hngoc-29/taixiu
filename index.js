@@ -187,7 +187,7 @@ var Taixiu = function () {
             dice1: dice1,
             dice2: dice2,
             dice3: dice3,
-            result: dice1 + dice2 + dice3 <= 9 ? 'xiu' : 'tai'
+            result: dice1 + dice2 + dice3 <= 10 ? 'xiu' : 'tai'
         };
     }
 
