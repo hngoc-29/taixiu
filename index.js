@@ -7,7 +7,11 @@ app.use(cookieParser());
 
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-
+//start
+app.head('/v1/start-server', (req, res) => {
+    console.log('Khởi động máy chủ...');
+    return res.status(200).json({ message: 'Máy chủ đã khởi động', success: true });
+});
 // cổng
 server.listen(process.env.PORT || 3000, function () {
     console.log('server đang chạy....');
