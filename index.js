@@ -2,6 +2,7 @@ var io = require('socket.io')(server);
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var app = express();
+require('dotenv').config();
 app.use(express.static('./www'));
 app.use(cookieParser());
 
@@ -25,7 +26,7 @@ var Taixiu = function () {
 
     // cài đặt
     this.idPhien = 0;  // id phiên đặt
-    this.timeDatCuoc = 5; // thời gian đặt cược = 60s;
+    this.timeDatCuoc = process.env.TIMEDATCUOC || 60; // thời gian đặt cược = 60s;
     this.timechophienmoi = 10; // thời gian chờ phiên mới = 10s;
     this.soNguoiChonTai = 0;  // Số người đặt tài
     this.soNguoiChonXiu = 0;  // Số người đặt xỉu
@@ -89,11 +90,12 @@ var Taixiu = function () {
             idWin.forEach((data) => {
                 // Cập nhật tiền của người dùng
                 let userMoney = getUserMoney(data.id);
-                let newMoney = userMoney + (data.tien * 2); // Nhân đôi số tiền cược
+                const thuong = process.env.THUONG || 2;
+                let newMoney = userMoney + (data.tien * thuong); // Nhân đôi số tiền cược
                 setUserMoney(data.id, newMoney);
                 // Gửi thông báo thắng đến socket đúng
                 io.to(users[data.id].socketId).emit('winGame', {
-                    msg: 'Bạn đã thắng ' + (data.tien * 2) + ' xu',
+                    msg: 'Bạn đã thắng ' + (data.tien * thuong) + ' xu',
                     newMoney: newMoney,
                     id: data.id
                 });
