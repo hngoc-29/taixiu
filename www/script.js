@@ -302,7 +302,6 @@ function showAd() {
     document.getElementById("ad-modal").style.display = "flex";
     const countdownElement = document.getElementById("ad-countdown");
     let countdown = 15;
-    (adsbygoogle = window.adsbygoogle || []).push({});
     // Cập nhật đếm ngược mỗi giây
     countdownInterval = setInterval(() => {
         countdown--;
