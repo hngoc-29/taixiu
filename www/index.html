@@ -8,8 +8,6 @@
     <title>Game Tài Xỉu Online</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7299491929927944"
-     crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -38,6 +36,7 @@
                 <input id="custombet" class="input" type="number" placeholder="Custom" style="padding: 0px;">
             </button>
         </div>
+        <button id="history-button">Xem lịch sử</button>
         <img src="" id="roll"
             style="position: absolute; left:300px; top: 190px; transition: 0.5s;opacity: 0; width: 180px" />
         <p id="userxiu" class="usertxt" style="position: absolute; left: 115px;top: 352px; opacity: 1;"></p>
@@ -87,6 +86,27 @@
                     <input type="text" id="chat-input" placeholder="Enter message..." />
                     <button onclick="sendMessage()">Send</button>
                 </div>
+            </div>
+        </div>
+        <!-- Game history modal structure -->
+        <div id="history-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span id="history-close"><img class="close-icon" src="imgs/close.png" alt="close"></span>
+                <h3>Lịch sử trò chơi</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Xúc xắc 1</th>
+                            <th>Xúc xắc 2</th>
+                            <th>Xúc xắc 3</th>
+                            <th>Kết quả</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-table-body">
+                        <!-- Game history will be populated here -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

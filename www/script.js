@@ -201,8 +201,45 @@ socket.on('gameData', function (data) {
     }
 });
 
+let gameHistory = [];
+
+function updateGameHistory(dice) {
+    const result = dice.result === 'tai' ? 'Tài' : 'Xỉu';
+    gameHistory.unshift({ dice1: dice.dice1, dice2: dice.dice2, dice3: dice.dice3, result: result });
+    if (gameHistory.length > 10) {
+        gameHistory.pop(); // Keep only the last 10 results
+    }
+    renderGameHistory();
+}
+
+function renderGameHistory() {
+    const historyTable = document.getElementById('history-table-body');
+    historyTable.innerHTML = '';
+    const maxItems = window.innerHeight < 600 ? 5 : 10; // Render fewer items if height is small
+    gameHistory.slice(0, maxItems).forEach((game, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${game.dice1}</td>
+            <td>${game.dice2}</td>
+            <td>${game.dice3}</td>
+            <td>${game.result}</td>
+        `;
+        historyTable.appendChild(row);
+    });
+}
+
+document.getElementById('history-button').onclick = function () {
+    document.getElementById('history-modal').style.display = 'flex';
+};
+
+document.getElementById('history-close').onclick = function () {
+    document.getElementById('history-modal').style.display = 'none';
+};
+
 socket.on('gameOver', function (data) {
     gameOver(data);
+    updateGameHistory(data);
 });
 
 socket.on('gameStart', function (data) {
@@ -228,6 +265,11 @@ socket.on('winGame', function (data) {
         document.getElementById('money-display').innerHTML = getCookie('money');
         adjustMoneyDisplayWidth();
     }
+});
+
+socket.on('gameHistory', function (history) {
+    gameHistory = history;
+    renderGameHistory();
 });
 
 let selectedBet = 1000;
@@ -381,3 +423,5 @@ socket.on('chatMessage', function (msg) {
     chatMessages.appendChild(newMessage);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 });
+
+window.addEventListener('resize', renderGameHistory);

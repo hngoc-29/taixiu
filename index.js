@@ -19,12 +19,13 @@ server.listen(process.env.PORT || 3000, function () {
 
 // tài xỉu
 let users = {};
+let gameHistory = [];
 
 var Taixiu = function () {
 
     // cài đặt
     this.idPhien = 0;  // id phiên đặt
-    this.timeDatCuoc = 60; // thời gian đặt cược = 60s;
+    this.timeDatCuoc = 5; // thời gian đặt cược = 60s;
     this.timechophienmoi = 10; // thời gian chờ phiên mới = 10s;
     this.soNguoiChonTai = 0;  // Số người đặt tài
     this.soNguoiChonXiu = 0;  // Số người đặt xỉu
@@ -75,6 +76,14 @@ var Taixiu = function () {
         seft.time = seft.timechophienmoi;
         this.ketQua = seft.gameRandomResult();
         io.sockets.emit('gameOver', this.ketQua);
+
+        // Update game history
+        const result = this.ketQua.result === 'tai' ? 'Tài' : 'Xỉu';
+        gameHistory.unshift({ ...this.ketQua, result: result });
+        if (gameHistory.length > 10) {
+            gameHistory.pop(); // Keep only the last 10 results
+        }
+
         idWin = this.ketQua.result == 'tai' ? seft.idChonTai : seft.idChonXiu;
         setTimeout(() => {
             idWin.forEach((data) => {
@@ -220,6 +229,8 @@ io.on('connection', function (socket) {
     if (!id) id = generateUniqueId();
     users[id] = { money: Number(money), socketId: socket.id };
 
+    // Send game history to the client upon connection
+    socket.emit('gameHistory', gameHistory);
 
     socket.on('updateMoney', function (data) {
         setUserMoney(data.id, data.newMoney);

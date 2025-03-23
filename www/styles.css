@@ -548,3 +548,84 @@ input::-webkit-inner-spin-button {
 #custom-modal .modal-content button:hover {
     background-color: #45a049;
 }
+
+/* Game history modal styles */
+#history-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#history-modal .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.3s;
+}
+
+#history-modal .modal-content table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#history-modal .modal-content th,
+#history-modal .modal-content td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#history-modal .modal-content th {
+    background-color: #f2f2f2;
+}
+
+#history-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+#history-close img {
+    width: 24px;
+    height: 24px;
+}
+
+#history-close:hover img,
+#history-close:focus img {
+    transform: scale(1.2);
+}
+
+#history-button {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #007bff;
+    margin-top: 100px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#history-button:hover {
+    background-color: #0056b3;
+}
